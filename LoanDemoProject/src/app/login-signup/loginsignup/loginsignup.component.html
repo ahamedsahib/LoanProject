@@ -1,0 +1,69 @@
+<div class="Container">
+    <div class="Toolbar">
+        <img src="../../../assets/LoanProjectLogo (1).png" class="logo">
+    </div>
+    <div class="content">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink class="navtab">Login</a>
+          <ng-template ngbNavContent>
+              <div class="loginFields">
+                <form [formGroup] ="LoginForm" class="Fields">
+                    <label class="labels">Email</label>
+                    <input class="textFields" formControlName ="EmailId">
+                    <div class="error" *ngIf="f.EmailId.invalid && f.EmailId.touched">
+                        <small>Email is Invalid.</small>
+                    </div>
+                    <label class="labels">Password</label>
+                    <input type="password" class="textFields" formControlName ="Password">
+                    <div class="error" *ngIf="f.Password.invalid && f.Password.touched">
+                        <small>Password is Invalid.</small>
+                    </div>
+                    <button type="button" class="loginbtn"(click)="login()">LOGIN</button>
+                </form>
+              </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink class="navtab">SignUp</a>
+          <ng-template ngbNavContent>
+            <div class="loginFields">
+                <form [formGroup] ="SignUpForm" class="Fields">
+              <label class="labels">Name</label>
+              <input class="textFields" formControlName ="Name">
+              <div class="error" *ngIf="s.Name.invalid && s.Name.touched">
+                <small>Name is Invalid.</small>
+              </div>
+              <label class="labels">Phone</label>
+              <input class="textFields" formControlName ="Phone">
+              <div class="error" *ngIf="s.Phone.invalid && s.Phone.touched">
+                <small>Phone Number not valid.</small>
+              </div>
+              <div class="gendertypes">
+              <label class="labels">Gender</label>
+              <input type="radio" style="margin-left: 20px;" id="male"class="gender" value="Male" formControlName="gender"><label class="labels">Male</label>
+            <input type="radio" style="margin-left: 10px;" id="female" value="Female" class="gender"><label class="labels">Female</label></div>
+              <label class="labels">Email</label>
+              <input class="textFields" formControlName ="EmailId">
+              <div class="error" *ngIf="s.EmailId.invalid && s.EmailId.touched">
+                <small>Email is Invalid.</small>
+              </div>
+              <label class="labels">Password</label>
+              <input type="password" class="textFields" formControlName ="Password" >
+              <div class="error" *ngIf="s.Password.invalid && s.Password.touched">
+                <small>Password is Invalid.</small>
+              </div>
+              <label class="labels">Confirm Password</label>
+              <input type="password" class="textFields" formControlName ="confirmPassword" pattern="{{ this.SignUpForm.value.password}}" >
+              <div class="error" *ngIf="s.confirmPassword.invalid && s.confirmPassword.touched">
+                <small>confirmPassword is Invalid.</small>
+            </div>
+              <button type="button" class="SignUpbtn" (click)="SignUp()" [ngClass]="SignUpForm.invalid?'noInput':'pointer'">SIGN UP</button>
+              </form>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </div>

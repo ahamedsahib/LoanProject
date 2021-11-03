@@ -1,0 +1,43 @@
+@mixin flex( $display:flex, $alignitems, $justifycontent,$flexdirection ) { 
+    display:$display;
+    align-items: $alignitems;
+    justify-content: $justifycontent;
+    flex-direction: $flexdirection;
+}
+$app-color: #390752;
+.Toolbar{
+    @include flex($alignitems:center,$justifycontent:space-between,$flexdirection:row);
+    padding:3px;
+    background-color: $app-color;
+    .nav-items{
+        margin-right: 30px;
+        color: #FDFDFD;
+        font-size: 20px;
+    }
+}
+.homebackground{
+    height: 550px;
+    width: 100%;
+}
+.quote-text-description{
+    font-size: 20px;
+    color: #0B0B09;
+}
+.Quotes{
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    right: 0%;
+    transform: translate(-50%, -50%);
+
+}
+.startButton{
+    margin-top: 10px;
+    border-radius: 15px;
+    height: 40px;
+    width: 160px;
+    border: none;
+    color: #FDFDFD;
+    font-weight: 500;
+    background-color: $app-color;
+}

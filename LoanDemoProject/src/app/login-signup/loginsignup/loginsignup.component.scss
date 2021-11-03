@@ -1,0 +1,93 @@
+@mixin flex( $display:flex, $alignitems, $justifycontent,$flexdirection ) { 
+    display:$display;
+    align-items: $alignitems;
+    justify-content: $justifycontent;
+    flex-direction: $flexdirection;
+}
+$app-color: #390752;
+$card-width:350px;
+.Toolbar{
+    @include flex($alignitems:center,$justifycontent:space-between,$flexdirection:row);
+    padding:3px;
+    background-color: $app-color;
+   
+}
+.sample{
+    justify-content: space-between;
+}
+.content{
+    padding-top: 20px;
+    @include flex($alignitems:center,$justifycontent:center,$flexdirection:column);
+    width: 100%;
+    min-height: 500px;
+    background-color: $app-color;
+}
+::ng-deep.nav {
+    background-color: white;
+    width: $card-width;
+    padding-top: 15px;
+    border-radius: 20px 20px 0px 0px;
+    @include flex($alignitems:center,$justifycontent:space-around,$flexdirection:row);
+}
+.navtab{
+    width: 150px;
+    text-align: center;
+}
+.loginFields{
+    width: $card-width;
+    padding: 15px 30px 30px 30px;
+    border-radius: 0px 0px 20px 20px;
+    background-color: white;
+}
+.Fields{
+    @include flex($alignitems:none,$justifycontent:none,$flexdirection:column);
+}
+.textFields{
+ border-radius: 20px;
+ padding: 5px;   
+ border: 1px solid grey;
+ margin-bottom: 10px;
+}
+.labels{
+    color: #646E65;
+    margin-left: 3px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.loginbtn{
+    margin-top: 10px;
+    background-color: $app-color;
+    color: #fdfdfd;
+    border: none;
+    padding: 5px;
+    width: 70%;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-left: 40px;
+}
+.SignUpbtn{
+    background-color: $app-color;
+    color: #fdfdfd;
+    border: none;
+    margin-top: 10px;
+    padding: 5px;
+    width: 85%;
+    margin-left: 25px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+.error{
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: -10px;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #fdfdfd;
+    border-radius: 10px;
+    background-color:$app-color;
+}
+a{
+    color:$app-color;
+}
