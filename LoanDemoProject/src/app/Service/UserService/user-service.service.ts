@@ -9,22 +9,29 @@ export class UserServiceService {
 
   constructor(private httpService:HttpServiceService) { }
   Register(data:any){
-    const params={
-      UserName : data.name,
-      PhoneNumber : data.phone,
+    console.log(data);
+    console.log(data.Name);
+    let params={
+      UserName : data.Name,
+      PhoneNumber : data.Phone,
       Gender:data.gender,
-      EmailId :data.email,
-      Password : data.password,
+      EmailId :data.EmailId,
+      Password : data.Password,
       Profession:data.profession
     }
+
+    console.log("params "+ params);
+    
     return this.httpService.post(`${environment.baseUrl}/api/User/Register`,params)
   }
 
   Login(data:any){
+    console.log(data)
     const params={
-      EmailId :data.email,
-      Password : data.password,
+      EmailId :data.EmailId,
+      Password : data.Password,
     }
-    return this.httpService.post(`${environment.baseUrl}/api/login`,params)
+    console.log(params);
+    return this.httpService.post(`${environment.baseUrl}/api/User/Login`,params)
   }
 }

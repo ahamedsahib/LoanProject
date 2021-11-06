@@ -29,15 +29,17 @@ export class LoginsignupComponent implements OnInit {
     });
   }
   SignUp(){
+    console.log(this.SignUpForm.value);
     this.userService.Register(this.SignUpForm.value).
         subscribe((status:any)=>
         {
           console.log(status);
-          if(`${status.status == true}`)
+          if(`${status.Status == true}`)
           this.ngOnInit();
       }); 
   }
   login(){
+    
     this.userService.Login(this.LoginForm.value).
         subscribe((status:any)=>
         {
