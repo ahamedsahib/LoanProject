@@ -14,6 +14,6 @@ export class PropertyserviceService {
   }
   loanApplications(userId:any)
   {
-    return this.httpService.get(`${environment.baseUrl}/api/Property/Property/${userId}`);
+    return this.httpService.get(`${environment.baseUrl}/api/Property/Property/?userId=${userId}`);
   }
 }

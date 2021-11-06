@@ -63,16 +63,16 @@
     <p class="not-found-text" *ngIf="Formdata.length ==0">NO RECORDS FOUND</p>
     <div class="history-items" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let data of Formdata" style="margin-bottom: 8px;">
         <div class="text-items" fxLayout="column">
-            <span>FormID:{{data.FormId}}</span>
-            <span>Loan Name:{{data.LoanName}}</span>
+            <span>FormID:{{data.formId}}</span>
+            <span>Loan Name:{{data.reasonForLoan}}</span>
             <div>
-                <span>Loan Amount:{{data.Amount}}</span>&nbsp;
-                <span>Status:{{data.Status}}</span>
+                <span>Loan Amount:{{data.loanAmount}}</span>&nbsp;
+                <span>Status:{{data.status}}</span>
             </div>
         </div>
         <div>
-            <mat-icon class="status-image" style="color: green;" *ngIf="data.Status == 'Accepted'">check_circle</mat-icon>
-            <mat-icon class="status-image" style="color: Red;" *ngIf="data.Status != 'Accepted'">cancel</mat-icon>
+            <mat-icon class="status-image" style="color: green;" *ngIf="data.status == 'Approved'">check_circle</mat-icon>
+            <mat-icon class="status-image" style="color: Red;" *ngIf="data.status != 'Approved'">cancel</mat-icon>
         </div>
     </div>
 </div>

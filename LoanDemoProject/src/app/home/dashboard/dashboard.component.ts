@@ -17,14 +17,7 @@ LoanFormOpenStatus=false;
 AddPropertiesFormStatus=false;
 properties: { Property: string, PropertyWorth: any}[] =[];
 
-Formdata=[
-  {
-'FormId':12,
-'LoanName':'house',
-'Amount':2000,
-'Status':'Accepted'
-}
-]
+Formdata:{formId: any,loanAmount: any,reasonForLoan: string,status: string}[]=[];
 
   constructor(private propertyService:PropertyserviceService) { }
 
@@ -69,7 +62,7 @@ Formdata=[
       this.propertyService.loanApplications(this.userId).
       subscribe((status:any)=>
       {
-        console.log(status);
+        console.log(status.data);
         if(`${status.status == true}`)
         {
          this.Formdata=status.data;
