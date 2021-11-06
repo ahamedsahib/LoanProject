@@ -1,5 +1,8 @@
+import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PropertyserviceService } from 'src/app/Service/PropertyService/propertyservice.service';
+import { UserServiceService } from 'src/app/Service/UserService/user-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +11,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 PropertyForm !:FormGroup;
+userId=JSON.parse((localStorage.getItem('LoanProjectDetails'))!).userId;
  map = new Map();  
 LoanFormOpenStatus=false;
 AddPropertiesFormStatus=false;
-properties: { name: string, worth: string}[] =[];
+properties: { Property: string, PropertyWorth: any}[] =[];
+
 Formdata=[
   {
 'FormId':12,
@@ -21,16 +26,17 @@ Formdata=[
 }
 ]
 
-  constructor() { }
+  constructor(private propertyService:PropertyserviceService) { }
 
   ngOnInit(): void {
     this.PropertyForm = new FormGroup({
       Name: new FormControl('',[Validators.required]),
        Worth:new FormControl('',[Validators.required])
      });
+     this.getLoanApplicationStatus();
   }
  AddProp(){
-  this.properties.push({ name:this.PropertyForm.value.Name , worth:this.PropertyForm.value.Worth });
+  this.properties.push({ Property:this.PropertyForm.value.Name , PropertyWorth:Number(this.PropertyForm.value.Worth)});
   this.PropertyForm.reset();
   this.AddPropertiesFormStatus=false;
  }
@@ -38,14 +44,36 @@ Formdata=[
   this.properties.splice(index,1);
  }
  ApplyLoan(loanName:any){
- this.map.set('name', loanName); 
- this.map.set('properties',this.properties);
-  console.log(this.map);    
-  this.properties=[];
-  this.LoanFormOpenStatus=false;
+  let params={
+    ReasonForLoan:loanName,
+    propertiesList:this.properties,
+    UserId: this.userId,
+  }
+  this.propertyService.ApplyLoan(params).
+  subscribe((status:any)=>
+  {
+    if(`${status.status == true}`)
+    {
+      this.properties=[];
+      this.LoanFormOpenStatus=false;
+      this.getLoanApplicationStatus();
+    }
+  });
  }
- CancelApplication(){
-  this.properties=[];
-  this.LoanFormOpenStatus=false;
- }
+    CancelApplication(){
+      this.properties=[];
+      this.LoanFormOpenStatus=false;
+    }
+    getLoanApplicationStatus()
+    {
+      this.propertyService.loanApplications(this.userId).
+      subscribe((status:any)=>
+      {
+        console.log(status);
+        if(`${status.status == true}`)
+        {
+         this.Formdata=status.data;
+        }
+      });
+   }
 }

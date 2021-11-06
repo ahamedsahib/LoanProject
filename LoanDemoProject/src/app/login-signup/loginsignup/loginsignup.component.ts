@@ -44,9 +44,9 @@ export class LoginsignupComponent implements OnInit {
         subscribe((status:any)=>
         {
           console.log(status);
-          if(`${status.Status == true}`)
-          localStorage.setItem('userDetails',JSON.stringify(status.Data));
-          //this.router.navigate(['/home']);
+          if(`${status.status == true}`)
+          localStorage.setItem('LoanProjectDetails',JSON.stringify(status.data));
+          this.router.navigate(['/home/dashboard']);
       });
   }
   get f() { return this.LoginForm.controls; }

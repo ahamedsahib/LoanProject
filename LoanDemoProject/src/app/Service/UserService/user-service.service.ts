@@ -20,7 +20,7 @@ export class UserServiceService {
       Profession:data.profession
     }
 
-    console.log("params "+ params);
+    console.log(params);
     
     return this.httpService.post(`${environment.baseUrl}/api/User/Register`,params)
   }
@@ -34,4 +34,5 @@ export class UserServiceService {
     console.log(params);
     return this.httpService.post(`${environment.baseUrl}/api/User/Login`,params)
   }
+  
 }
