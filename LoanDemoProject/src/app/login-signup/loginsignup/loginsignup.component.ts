@@ -20,7 +20,8 @@ export class LoginsignupComponent implements OnInit {
       Password:new FormControl('',[Validators.required, Validators.pattern('^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$')]),
       Phone:new FormControl('',[Validators.required,Validators.pattern("^[6-9]{1}[0-9]{9}$")]),
       confirmPassword:new FormControl('',[Validators.required]),
-      gender:new FormControl('',[Validators.required])
+      gender:new FormControl('',[Validators.required]),
+      profession:new FormControl('',[Validators.required])
     });
     this.LoginForm = new FormGroup({
      EmailId: new FormControl('',[Validators.required, Validators.email]),
@@ -28,7 +29,7 @@ export class LoginsignupComponent implements OnInit {
     });
   }
   SignUp(){
-    this.userService.Login(this.SignUpForm.value).
+    this.userService.Register(this.SignUpForm.value).
         subscribe((status:any)=>
         {
           console.log(status);
@@ -41,8 +42,8 @@ export class LoginsignupComponent implements OnInit {
         subscribe((status:any)=>
         {
           console.log(status);
-          if(`${status.status == true}`)
-          localStorage.setItem('userDetails',JSON.stringify(status.userData));
+          if(`${status.Status == true}`)
+          localStorage.setItem('userDetails',JSON.stringify(status.Data));
           //this.router.navigate(['/home']);
       });
   }

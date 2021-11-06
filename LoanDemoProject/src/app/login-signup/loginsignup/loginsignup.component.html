@@ -43,6 +43,8 @@
               <label class="labels">Gender</label>
               <input type="radio" style="margin-left: 20px;" id="male"class="gender" value="Male" formControlName="gender"><label class="labels">Male</label>
             <input type="radio" style="margin-left: 10px;" id="female" value="Female" class="gender"><label class="labels">Female</label></div>
+            <label class="labels">Profession</label>
+            <input class="textFields" formControlName ="profession">
               <label class="labels">Email</label>
               <input class="textFields" formControlName ="EmailId">
               <div class="error" *ngIf="s.EmailId.invalid && s.EmailId.touched">

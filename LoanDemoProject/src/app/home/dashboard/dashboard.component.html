@@ -1,0 +1,78 @@
+<div class="Toolbar">
+    <img src="../../../assets/LoanProjectLogo (1).png" class="logo">
+</div>
+<div class="content" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="column" class="user-details">
+            <p class="username">Hi Ahamed</p>
+            <span>adsahib39@gmail.com</span>
+            <div>
+                <mat-icon class="phone-icon">phone_android</mat-icon>
+                <span>9677976288</span>
+            </div>
+        </div>
+        <div fxLayoutAlign="end center">
+            <button class="add-loanbtn" (click)="LoanFormOpenStatus=true">Apply Loan</button>
+        </div>
+    </div>
+    <div class="form" *ngIf="LoanFormOpenStatus">
+        <p class="form-heading">Loan Application Form</p>
+        <div fxLayoutAlign="end center" style="margin-top: -35px;">
+            <mat-icon (click)="CancelApplication()" style="cursor: pointer;">cancel</mat-icon>
+        </div>
+        <div class="reason-field" style="margin-top: 10px;">
+            <span class="form-labels">Loan Name </span>
+            <input class="loan-name-field" #loanName>
+        </div>
+        <button class="add-properties-btn" (click)="AddPropertiesFormStatus=true">
+            <mat-icon class="add-icon">add</mat-icon>Add Properties
+        </button>
+        <div class="loan-properties" *ngIf="AddPropertiesFormStatus">
+            <form [formGroup] ="PropertyForm">
+            <div>
+                <span class="form-labels">Property </span>
+                <input class="loan-name-field" style="margin-left: 30px;" formControlName="Name">
+                <span class="form-labels" style="margin-left: 20px;">Property Value </span>
+                <input class="loan-name-field" formControlName="Worth">
+            </div>
+            </form>
+            <div >
+                <button class="add-properties" (click)="AddProp()">Add</button>
+            </div>
+        </div>
+        <div class="display-properties" style="margin-top:20px ;" *ngIf="properties.length !=0">
+            <h3 style="font-size: 20px;font-weight: 500;">PROPERTIES</h3>
+        <div class="loan-properties"  *ngFor="let prop of properties;let i = index">
+            <div>
+                <span class="form-labels">{{i+1}}. &nbsp; Property </span>
+                <span class="prop-view-field" style="margin-left: 30px;" >{{prop.name}}</span>
+                <span class="form-labels" style="margin-left: 20px;">Property Worth </span>
+                <span class="prop-view-field"> {{prop.worth}}</span>
+            </div>
+            <div >
+                <button class="add-properties" (click)="delete(i)">Delete</button>
+            </div>
+        </div>
+        <div fxLayoutAlign="end center">
+            <button class="add-properties apply-button" (click)="ApplyLoan(loanName.value)">APPLY</button>
+        </div>
+        </div>
+
+    </div>
+    <h1 class="history-text" *ngIf="Formdata.length !=0">HISTORY</h1>
+    <p class="not-found-text" *ngIf="Formdata.length ==0">NO RECORDS FOUND</p>
+    <div class="history-items" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let data of Formdata" style="margin-bottom: 8px;">
+        <div class="text-items" fxLayout="column">
+            <span>FormID:{{data.FormId}}</span>
+            <span>Loan Name:{{data.LoanName}}</span>
+            <div>
+                <span>Loan Amount:{{data.Amount}}</span>&nbsp;
+                <span>Status:{{data.Status}}</span>
+            </div>
+        </div>
+        <div>
+            <mat-icon class="status-image" style="color: green;" *ngIf="data.Status == 'Accepted'">check_circle</mat-icon>
+            <mat-icon class="status-image" style="color: Red;" *ngIf="data.Status != 'Accepted'">cancel</mat-icon>
+        </div>
+    </div>
+</div>

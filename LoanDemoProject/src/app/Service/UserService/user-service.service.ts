@@ -10,18 +10,19 @@ export class UserServiceService {
   constructor(private httpService:HttpServiceService) { }
   Register(data:any){
     const params={
-      Name : data.name,
-      Phone : data.phone,
+      UserName : data.name,
+      PhoneNumber : data.phone,
       Gender:data.gender,
-      Email :data.email,
+      EmailId :data.email,
       Password : data.password,
+      Profession:data.profession
     }
-    return this.httpService.post(`${environment.baseUrl}/api/register`,params)
+    return this.httpService.post(`${environment.baseUrl}/api/User/Register`,params)
   }
 
   Login(data:any){
     const params={
-      Email :data.email,
+      EmailId :data.email,
       Password : data.password,
     }
     return this.httpService.post(`${environment.baseUrl}/api/login`,params)
