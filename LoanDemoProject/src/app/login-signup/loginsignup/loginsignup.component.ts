@@ -34,9 +34,12 @@ export class LoginsignupComponent implements OnInit {
     this.userService.Register(this.SignUpForm.value).
         subscribe((status:any)=>
         {
+          this.snackBar.open(`${status.message}`, '', {duration: 3000 ,verticalPosition: 'bottom', 
+         horizontalPosition: 'left' })
           if(`${status.Status == true}`)
           {
-          this.router.navigate(['/user/login']);
+          this.SignUpForm.reset();
+          this.ngOnInit();
         }
       },
       error => {

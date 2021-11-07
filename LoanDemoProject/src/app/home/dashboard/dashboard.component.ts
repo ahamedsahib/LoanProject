@@ -27,7 +27,7 @@ Formdata:{formId: any,loanAmount: any,reasonForLoan: string,status: string}[]=[]
   ngOnInit(): void {
     this.PropertyForm = new FormGroup({
       Name: new FormControl('',[Validators.required]),
-       Worth:new FormControl('',[Validators.required,Validators.pattern('^[1-9]+'),])
+       Worth:new FormControl('',[Validators.required,Validators.pattern('^[0-9]+'),])
      });
      this.getLoanApplicationStatus();
   }
