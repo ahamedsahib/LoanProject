@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatMenuModule} from '@angular/material/menu';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeRoutingModule,
     MatIconModule,
     FlexLayoutModule,
-    MatMenuModule,FormsModule, ReactiveFormsModule 
+    MatMenuModule,FormsModule, ReactiveFormsModule ,
+    MatSnackBarModule
   ]
 })
 export class HomeModule { }

@@ -1,14 +1,22 @@
 <div class="Toolbar">
+    <div>
     <img src="../../../assets/LoanProjectLogo (1).png" class="logo">
+</div>
+<div class="Logout-btn">
+    <button class="Logout-btn" (click)="logout()">logout</button>
+</div>
 </div>
 <div class="content" fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="column" class="user-details">
-            <p class="username">Hi Ahamed</p>
-            <span>adsahib39@gmail.com</span>
-            <div>
-                <mat-icon class="phone-icon">phone_android</mat-icon>
-                <span>9677976288</span>
+            <p class="username">Hi {{Name}}</p>
+            <div fxLayoutAlign=" center" style="margin-right: 2px;">
+                <mat-icon class="phone-icon"style="margin-left: -5px;" >mail_outline</mat-icon>
+                <span style="font-size:  15px;margin-left: 3px;">{{emailId}}</span>
+            </div>
+            <div fxLayoutAlign=" center" style="margin-right: 2px;">
+                <mat-icon class="phone-icon"style="margin-left: -5px;" >phone_android</mat-icon>
+                <span style="font-size: 15px;margin-left: 3px;">{{phone}}</span>
             </div>
         </div>
         <div fxLayoutAlign="end center">
@@ -34,6 +42,9 @@
                 <input class="loan-name-field" style="margin-left: 30px;" formControlName="Name">
                 <span class="form-labels" style="margin-left: 20px;">Property Value </span>
                 <input class="loan-name-field" formControlName="Worth">
+                <div class="error" *ngIf="s.Worth.invalid && s.Worth.touched" style="color: red;font-size: 12px;">
+                    <small>value must be integer</small>
+                  </div>
             </div>
             </form>
             <div >

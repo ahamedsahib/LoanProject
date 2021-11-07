@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/Service/UserService/user-service.service';
 
@@ -11,7 +12,7 @@ import { UserServiceService } from 'src/app/Service/UserService/user-service.ser
 export class LoginsignupComponent implements OnInit {
   LoginForm!:FormGroup;
   SignUpForm!:FormGroup;
-  constructor(private userService:UserServiceService,private router:Router) { }
+  constructor(private userService:UserServiceService,private router:Router,private snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.SignUpForm = new FormGroup({
@@ -33,20 +34,28 @@ export class LoginsignupComponent implements OnInit {
     this.userService.Register(this.SignUpForm.value).
         subscribe((status:any)=>
         {
-          console.log(status);
           if(`${status.Status == true}`)
-          this.ngOnInit();
-      }); 
+          {
+          this.router.navigate(['/user/login']);
+        }
+      },
+      error => {
+        this.snackBar.open(`${error.error.message}`, '', {duration: 3000 ,verticalPosition: 'bottom', 
+        horizontalPosition: 'left' })
+    }); 
   }
   login(){
     
     this.userService.Login(this.LoginForm.value).
         subscribe((status:any)=>
         {
-          console.log(status);
+          this.snackBar.open(`${status.message}`, '', {duration: 3000 ,verticalPosition: 'bottom', 
+          horizontalPosition: 'left' })
           if(`${status.status == true}`)
+          {
           localStorage.setItem('LoanProjectDetails',JSON.stringify(status.data));
           this.router.navigate(['/home/dashboard']);
+          }
       });
   }
   get f() { return this.LoginForm.controls; }

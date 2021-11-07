@@ -1,8 +1,9 @@
 import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { PropertyserviceService } from 'src/app/Service/PropertyService/propertyservice.service';
-import { UserServiceService } from 'src/app/Service/UserService/user-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,19 +13,21 @@ import { UserServiceService } from 'src/app/Service/UserService/user-service.ser
 export class DashboardComponent implements OnInit {
 PropertyForm !:FormGroup;
 userId=JSON.parse((localStorage.getItem('LoanProjectDetails'))!).userId;
- map = new Map();  
+Name=JSON.parse((localStorage.getItem('LoanProjectDetails'))!).userName;
+emailId=JSON.parse((localStorage.getItem('LoanProjectDetails'))!).emailId;
+phone=JSON.parse((localStorage.getItem('LoanProjectDetails'))!).phoneNumber;
 LoanFormOpenStatus=false;
 AddPropertiesFormStatus=false;
 properties: { Property: string, PropertyWorth: any}[] =[];
 
 Formdata:{formId: any,loanAmount: any,reasonForLoan: string,status: string}[]=[];
 
-  constructor(private propertyService:PropertyserviceService) { }
+  constructor(private propertyService:PropertyserviceService,private router:Router,private snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.PropertyForm = new FormGroup({
       Name: new FormControl('',[Validators.required]),
-       Worth:new FormControl('',[Validators.required])
+       Worth:new FormControl('',[Validators.required,Validators.pattern('^[1-9]+'),])
      });
      this.getLoanApplicationStatus();
   }
@@ -45,17 +48,23 @@ Formdata:{formId: any,loanAmount: any,reasonForLoan: string,status: string}[]=[]
   this.propertyService.ApplyLoan(params).
   subscribe((status:any)=>
   {
+    this.snackBar.open(`${status.message}`, '', {duration: 3000 ,verticalPosition: 'bottom', 
+          horizontalPosition: 'left' })
     if(`${status.status == true}`)
     {
       this.properties=[];
+      this.PropertyForm.reset();
       this.LoanFormOpenStatus=false;
       this.getLoanApplicationStatus();
     }
   });
  }
+ get s() { return this.PropertyForm.controls; }
     CancelApplication(){
       this.properties=[];
+      this.PropertyForm.reset();
       this.LoanFormOpenStatus=false;
+      this.AddPropertiesFormStatus=false;
     }
     getLoanApplicationStatus()
     {
@@ -68,5 +77,9 @@ Formdata:{formId: any,loanAmount: any,reasonForLoan: string,status: string}[]=[]
          this.Formdata=status.data;
         }
       });
+   }
+   logout(){
+     localStorage.removeItem('LoanProjectDetails');
+     this.router.navigate(['/home']);
    }
 }
